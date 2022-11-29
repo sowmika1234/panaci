@@ -1,5 +1,5 @@
 from gtts import gTTS
-import os
+import sys
 from playsound import playsound
 
 from translate import Translator
@@ -33,10 +33,10 @@ for line in l:
 
 
 objTrans=clsTranslate()
-mytext= objTrans.translateText(mytext,argv[2])
+mytext= objTrans.translateText(mytext,sys.argv[2])
 print(mytext)
 #smytext="Où est-ce que vous allez Madame, Monsieur ?/ Quelle est votre destination ?"
-language=argv[3]
+language=sys.argv[3]
 
 obj=gTTS(text=mytext,lang=language)
 obj.save("welcome.mp3")
