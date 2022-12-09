@@ -5,128 +5,185 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <style>
-        *{
-    box-sizing: border-box;
-}
-
-body{
-    font-family: Arial, Helvetica, sans-serif;
-  padding-top: 2rem;
-}
-
-li{
-    list-style: none;
-}
-
-.hamburger input[type="checkbox"]{
-    width: 40px;
-    height: 32px;
-    position: absolute;
-    top: 5px;
-    left: 6px;
-    display: block;
-    z-index: 3;
-    opacity: 0;
-    cursor: pointer;
-}
-
-.hamburgerlines{
-    width: 40px;
-    height: 32px;
-    position: absolute;
-    top: 8px;
-    left: 7px;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.hamburgerlines .lines{
-    display: block;
-    height: 4px;
-    width: 100%;
-    background: #232323;
-    border-radius: 10px;
-}
-
-.hamburger{
-    position: relative;
-   float: left; 
-  flex:1;
-}
-
-.menu-items{
-    padding-top: 90px;
-    transform: translate(-110%);
-    transition: transform 0.5s ease-in-out;
-    padding-left: 15px;
-    background: #fff;
-    margin-top: -10px;
-    color: #fff;
-    padding-bottom: 1rem;
-    max-width: 400px;
-    width: 90%;
-    height: 100vh;
-    overflow: scroll;
-}
-
-.menu-items li{
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
-}
-
-.hamburger input[type="checkbox"]:checked ~ .menu-items{
-    display: block;
-    transform: translate(0%);
-    background: #232323;
-    
-}
-
-.hamburger input[type="checkbox"]:checked ~ .hamburgerlines .lines{
-    background: #fff;
-}
-
-.hamburgerlines .line1{
-   transform-origin: 0% 0%;
-   transition: transform 0.3s ease-in-out;    
-}
-
-.hamburgerlines .line3{ 
-   transform-origin: 0% 100%;
-   transition: transform 0.3s ease-in-out;  
-}
-
-.hamburger input[type="checkbox"]:checked ~ .hamburgerlines .line1{
-    transform: rotate(45deg);
-}
-
-.hamburger input[type="checkbox"]:checked ~ .hamburgerlines .line2{
-    display: none;
-}
-
-
-.hamburger input[type="checkbox"]:checked ~ .hamburgerlines .line3{
-    transform: rotate(-45deg);
-}
-
-.heading {
-/*   display: inline; */
-  height: 50%;
-  width: 50%;
+        /* page styling */
+        body {
+    font-family: 'Poppins';
+    background: linear-gradient(90deg,#7bed9f, #3498db);
+  }
   
-/*   background-color: red; */
-  margin-top: 5%;
-  margin-right : 10%;
-  flex: 1;
-}
+  section {
+    max-width: 900px;
+    margin: auto;
+  }
+  
+  section h1 {
+    font-family: 'Poppins';
+    font-size: 46px;
+    text-align: center;
+  }
+  
+  section p {
+    font-size: 20px;
+    text-align: center;
+    font-weight: lighter;
+  }
+  
+  /* hamburger */
+  .checkbox {
+    display: none;
+  }
+  
+  .button {
+    position: relative;
+    background-color: white;
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    position: fixed;
+    top: 5vh; 
+    right: 5vw; 
+    z-index: 2000;
+    box-shadow: 0 1rem 3rem black;
+    text-align: center; 
+    cursor: pointer;
+  }
+  
+  .background {
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    position: fixed;
+    top: 5.5vh; 
+    right: 5.5vw; 
+    background-color: #68B984;
+    z-index: 1000;
+  
+    transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+  }
+  
+  .nav {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: -60vw;
+    z-index: 1500;
+    opacity: 0;
+    width: 0;
+    transition: all 0.8s;
+  }
+  
+  .list {
+    position: absolute;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    list-style: none;
+    text-align: center;
+    width: 100%;
+    color: #282A3A;
+  }
+  
+  .item {
+    margin: 0.5rem;
+    font-size: 32px;
+  }
+  
+  .link:link,
+  .link:visited {
+    display: inline-block;
+    font-size: 3rem;
+    font-weight: 300;
+    padding: 1rem 2rem;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-image: linear-gradient(
+      120deg,
+      transparent 0%,
+      transparent 50%,
+      white 50%
+    );
+    background-size: 220%;
+    transition: all 0.4s;
+  }
+  
+  .link:hover,
+  .link:active {
+    color: #E5D9B6;
+    cursor: pointer;
+  }
+  
+  /* functionality */
+  .checkbox:checked ~ .background {
+    transform: scale(80);
+  }
+  .checkbox:checked ~ .nav {
+    opacity: 1;
+    width: 100%;
+    right: 0;
+  }
+  
+  /*  */
+  /* styling hamb ICON */
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .icon,
+  .icon::before,
+  .icon::after {
+    width: 3rem;
+    height: 2px;
+    background-color: gray;
+    display: inline-block;
+  }
+  
+  .icon::before,
+  .icon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    transition: all 0.2s;
+  }
+  
+  .icon::before {
+    top: -0.8rem;
+  }
+  .icon::after {
+    top: 0.8rem;
+  }
+  
+  .button:hover icon:before {
+    top: -1rem;
+  }
+  .button:hover icon::after {
+    top: 1rem;
+  }
+  
+  .checkbox:checked + .button .icon {
+    background-color: transparent;
+  }
+  
+  .checkbox:checked + .button .icon::before {
+    top: 0;
+    transform: rotate(135deg);
+  }
+  .checkbox:checked + .button .icon::after {
+    top: 0;
+    transform: rotate(-135deg);
+  }
 
-.parent{
- 
-  display:flex;
-  justify-content: space-between;
-}
+  button{
+    background-color:#68B984;
+    border: none;
+  }
+
+  
     </style>
 </head>
 <body>
@@ -134,34 +191,38 @@ li{
 </body>
 </html>
 <body>
-    <div class="parent">
-      <div class="hamburger">
-          <input type="checkbox">
-          <div class="hamburgerlines">
-              <span class="lines line1">
-  
-              </span>
-              <span class="lines line2">
-  
-              </span>
-              <span class="lines line3">
-  
-              </span>
-          </div>
-          <ul class="menu-items">
-              
-                <form action="/home">
-                    <button style="background: #232323;border-color: #232323;color: #fff;" type="submit"><a style="color:white;text-decoration: none;">Text to speech with different lang</a></button>
-                </form>
-                <form action="/t2e">
-                    <button style="background: #232323;border-color: #232323;color: #fff;" type="submit"><a style="color:white;text-decoration: none;">Text to emotion analyser</a></button>
-                </form>
-                
-                
-              <li>Speech To Text</li>
-            
-          </ul>
-      </div>
-    <div class="heading"><h1>SPEECH  TEXT</h1></div>
-      </div>
+    <section>
+        <h1>SPEECH <-> TEXT</h1>
+        <p>The conversations between the patient and the healthcare professionals will have to be as close to the “natural” interactions as possible. The conversations are 
+            generally open ended. This will make the adoption of virtual agent more engaging. This project will entail speech recognition, language understanding and generating a 
+            response with emotional nuances of a human.</p>
+    </section>
+    
+    <!-- hamburger -->
+    <input type="checkbox" id="navi-toggle" class="checkbox" />
+    <label for="navi-toggle" class="button">
+        <span class="icon">&nbsp;</span>
+    </label>
+    <div class="background">&nbsp;</div>
+    
+    <!-- nav -->
+    <nav class="nav">
+        <ul class="list">
+        <form action="/home">
+            <button><li class="item"> <a class="link"> Text to speech with different lang </a> </li></button>
+        </form>
+        <form action="/t2e">
+            <button><li class="item"> <a class="link"> Text to emotion analyser </a> </li></button>
+        </form>
+        <form action="/chat">
+            <button><li class="item"> <a class="link"> Chat Conversation </a> </li></button>
+        </form>
+        <form action="/stt">
+            <button><li class="item"> <a class="link">Speech To Text</a></li></button>   
+        </form>
+        
+
+        </ul>
+    </nav>
+    
   </body>

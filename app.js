@@ -1,11 +1,12 @@
 const express=require("express");
 const bodyparser=require("body-parser");
+const ejs = require("ejs");
 const {spawn} = require('child_process');
 
 
 const app=express();
 const gtts=require("gtts");
-
+app.set("view engine", "ejs");
 app.use(bodyparser.urlencoded({extended:true}));
 
 app.get("/",function(req,res){
@@ -21,19 +22,56 @@ app.get("/t2e",function(req,res){
   res.sendFile(__dirname+"/t2e.html")
 })
 
+app.get("/chat",function(req,res){
+  res.sendFile(__dirname+"/chat.html")
+})
+
+app.post("/chat",function(req,res){
+  var text =req.body.myfile;
+
+  const pypro = spawn('python',['chat_to_speech.py',text]);
+
+pypro.stdout.on('data',(data)=>{
+   
+   data=data.toString();
+    console.log('stdout:',data);
+    res.render("t2eres.ejs",{data:data});
+});
+
+pypro.stderr.on('data',(data)=>{
+    data=data.toString()
+    
+    console.error('stderr:',data);
+});
+
+pypro.on('close',(code)=>{
+    console.log('py exited with code',code);
+})
+
+  
+
+})
+
+
+app.get("/stt",function(req,res){
+  res.redirect('http://localhost:3000/default')
+})
+
 app.post("/t2e",function(req,res){
   var text =req.body.text;
 
   const pypro = spawn('python',['t2e.py',text]);
 
 pypro.stdout.on('data',(data)=>{
-    data=data.toString()
+   
+   data=data.toString();
     console.log('stdout:',data);
-    res.send(data);
+    res.render("t2eres.ejs",{data:data});
 });
 
 pypro.stderr.on('data',(data)=>{
     data=data.toString()
+    
     console.error('stderr:',data);
 });
 
@@ -108,6 +146,6 @@ pypro.on('close',(code)=>{
 
 });
 
-app.listen(3000,function(){
-  console.log("Server is running on port 3000");
+app.listen(8000,function(){
+  console.log("Server is running on port 8000");
 });
