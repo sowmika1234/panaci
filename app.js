@@ -10,20 +10,20 @@ app.set("view engine", "ejs");
 app.use(bodyparser.urlencoded({extended:true}));
 
 app.get("/",function(req,res){
-  res.sendFile(__dirname+"/home.html");
+  res.sendFile(__dirname+"/views/home.html");
 });
 
 app.get("/home",function(req,res){
-  res.sendFile(__dirname+"/index.html");
+  res.sendFile(__dirname+"/views/index.html");
 });
 
 // text to emotion analyser
 app.get("/t2e",function(req,res){
-  res.sendFile(__dirname+"/t2e.html")
+  res.sendFile(__dirname+"/views/t2e.html")
 })
 
 app.get("/chat",function(req,res){
-  res.sendFile(__dirname+"/chat.html")
+  res.sendFile(__dirname+"/views/chat.html")
 })
 
 app.post("/chat",function(req,res){
@@ -142,13 +142,13 @@ pypro.on('close',(code)=>{
  // console.log('child process close all stdio with code ${code},${dataToSend}');
  // res.sendFile(__dirname+"/result.html")
  // });
- res.sendFile(__dirname+"/result.html");
+ res.sendFile(__dirname+"/views/result.html");
 
 });
 
 
 app.get("/language",function(req,res){
-  res.sendFile(__dirname+"/language.html")
+  res.sendFile(__dirname+"/views/language.html")
 });
 
 app.post("/language",function(req,res){
