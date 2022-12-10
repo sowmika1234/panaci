@@ -146,6 +146,35 @@ pypro.on('close',(code)=>{
 
 });
 
+
+app.get("/language",function(req,res){
+  res.sendFile(__dirname+"/language.html")
+});
+
+app.post("/language",function(req,res){
+var text=req.body.text;
+var rate=req.body.rate;
+var volume=req.body.volume;
+var gender=req.body.gender;
+const pypro = spawn('python',['language.py',text,rate,volume,gender]);
+
+pypro.stdout.on('data',(data)=>{
+  data=data.toString()
+  console.log('stdout:',data);
+  //res.send(data);
+});
+
+pypro.stderr.on('data',(data)=>{
+  data=data.toString()
+  console.error('stderr:',data);
+});
+
+pypro.on('close',(code)=>{
+  console.log('py exited with code',code);
+})
+
+});
+
 app.listen(8000,function(){
   console.log("Server is running on port 8000");
 });
