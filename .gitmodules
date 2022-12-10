@@ -1,0 +1,3 @@
+[submodule "sttp2"]
+	path = sttp2
+	url = https://github.com/JahnaviManoj/panace.git
